@@ -138,10 +138,11 @@ RUN set -x \
     && touch /var/run/nginx.pid \
     && mkdir -p /var/cache/nginx \
     && mkdir -p /var/cache/cache-heater \
-    && chown -R nginx:nginx /etc/nginx /var/log/nginx /var/cache/nginx /var/run/nginx.pid /var/log/modsec_audit.log /var/cache/cache-heater
+    && chown -R root:root /etc/nginx /var/log/nginx /var/cache/nginx /var/run/nginx.pid /var/log/modsec_audit.log /var/cache/cache-heater
+
+SHELL ["/bin/bash","-c"]
+RUN echo -e "include modules/all.conf;\n$(cat /etc/nginx/nginx.conf)" > /etc/nginx/nginx.conf
 
 EXPOSE 8080 8443
-
-USER nginx
 
 WORKDIR /etc/nginx
